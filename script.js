@@ -16,7 +16,7 @@ const questions = [
         answer: "world"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
+        question: "This is question 4",
         choices: ["String", "NaN", "Boolean", "Undefined"],
         answer: "Nan"
     },
@@ -56,48 +56,67 @@ const startBtn = document.querySelector(".start");
 const questionCountOutput = document.querySelector(".q-number");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
-const choicesBtns = document.querySelectorAll(".choices");
 
 
-const questionNum = 1;
+
+let currentIndex = 0;
 
 startBtn.addEventListener("click", startQuiz)
 
 function startQuiz() {
     const startSection = document.querySelector(".start-card");
     const questionSection = document.querySelector(".question-card");
+    const currentQuestion = questions[currentIndex]
 
     startSection.classList.remove("active");
     questionSection.classList.add("active");
+
+    showQuestion(checkQuestion);
 }
 
 
-function showQuestion() {
-    const currentQuestionIndex = questionNum - 1;
-    const currentQuestion = questions[currentQuestionIndex];
+function showQuestion(question) {
 
-    questionCountOutput.textContent = questionNum;
-    questionOutput.textContent = currentQuestion.question;
+    questionCountOutput.textContent = currentIndex + 1;
+    questionOutput.textContent = questions[currentIndex].question;
     
-    currentQuestion.choices.forEach(choice => {
+    questions[currentIndex].choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.classList.add("choices")
 
         btn.textContent = choice;
         choicesOutput.appendChild(btn);
 
-        btn.addEventListener("click", function () {
-            if (btn.textContent === currentQuestion.answer) {
-                console.log("correct")
-            } else {
-                console.log("incorrect")
-            }
-        })
+        btn.addEventListener("click", checkQuestion)
 
     })
     
 }
 
-showQuestion();
+function checkQuestion() {
+
+    if (this.textContent === questions[currentIndex].answer) {
+        console.log("correct")
+    } else {
+        console.log("incorrect")
+    }
+
+    nextQuestion();
+
+}
+
+function nextQuestion() {
+    currentIndex++
+    const choicesBtns = document.querySelectorAll(".choices");
+
+    questionCountOutput.textContent = currentIndex + 1;
+    questionOutput.textContent = questions[currentIndex].question;
+    
+    choicesBtns.forEach(btn => {
+        btn.textContent = "hello"
+    })
+
+}
+
 
 
