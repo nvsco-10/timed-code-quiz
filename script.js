@@ -57,13 +57,14 @@ const questionCountOutput = document.querySelector(".q-number");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
 
-
-
 let currentIndex = 0;
 
-startBtn.addEventListener("click", startQuiz)
+// click button to start quiz
+startBtn.addEventListener("click", startQuiz);
 
+// hide start button and show quiz section
 function startQuiz() {
+
     const startSection = document.querySelector(".start-card");
     const questionSection = document.querySelector(".question-card");
     const currentQuestion = questions[currentIndex]
@@ -112,8 +113,8 @@ function nextQuestion() {
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
     
-    choicesBtns.forEach(btn => {
-        btn.textContent = "hello"
+    choicesBtns.forEach((btn, i) => {
+        btn.textContent = questions[currentIndex].choices[i];
     })
 
 }
