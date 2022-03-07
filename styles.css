@@ -3,15 +3,17 @@
     padding: 0;
     box-sizing: border-box;
     font-family: monospace;
+    color: white;
+}
+
+body {
+    min-height: 100vh;
+    background-color: black;
 }
 
 header {
     height: 3rem;
     text-align: center;
-}
-
-body {
-    min-height: 100vh;
 }
 
 main {
@@ -23,6 +25,8 @@ main {
 
 h2.question {
     font-size: 2rem;
+    color: white;
+
 }
 
 .choices {
@@ -31,6 +35,8 @@ h2.question {
 
 button.choices {
     font-size: 1.5rem;
+    background-color: rgba(90, 90, 90, 0.5);
     width: 100%;
     padding: 0.5em;
+    color: inherit;
 }

@@ -1,4 +1,3 @@
-
 // Javascript interview questions source: https://www.guru99.com/javascript-interview-questions-answers.html
 const questions = [
     {
@@ -51,4 +50,32 @@ const questions = [
         choices: ["String", "NaN", "Boolean", "Undefined"],
         answer: "Nan"
     },
-]
+];
+
+const questionCountOutput = document.querySelector(".q-number")
+const questionOutput = document.querySelector(".question");
+const choicesOutput = document.querySelector(".choices-box");
+const choicesBtns = document.querySelectorAll(".choices");
+
+
+const questionNum = 1;
+
+function showQuestion() {
+    const currentQuestionIndex = questionNum - 1;
+    const currentQuestion = questions[currentQuestionIndex];
+
+    questionCountOutput.textContent = questionNum;
+    questionOutput.textContent = currentQuestion.question;
+    
+    currentQuestion.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.classList.add("choices")
+
+        btn.textContent = choice;
+        choicesOutput.appendChild(btn);
+
+    })
+    
+}
+
+showQuestion();
