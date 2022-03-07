@@ -52,13 +52,25 @@ const questions = [
     },
 ];
 
-const questionCountOutput = document.querySelector(".q-number")
+const startBtn = document.querySelector(".start");
+const questionCountOutput = document.querySelector(".q-number");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
 const choicesBtns = document.querySelectorAll(".choices");
 
 
 const questionNum = 1;
+
+startBtn.addEventListener("click", startQuiz)
+
+function startQuiz() {
+    const startSection = document.querySelector(".start-card");
+    const questionSection = document.querySelector(".question-card");
+
+    startSection.classList.remove("active");
+    questionSection.classList.add("active");
+}
+
 
 function showQuestion() {
     const currentQuestionIndex = questionNum - 1;
@@ -74,8 +86,18 @@ function showQuestion() {
         btn.textContent = choice;
         choicesOutput.appendChild(btn);
 
+        btn.addEventListener("click", function () {
+            if (btn.textContent === currentQuestion.answer) {
+                console.log("correct")
+            } else {
+                console.log("incorrect")
+            }
+        })
+
     })
     
 }
 
 showQuestion();
+
+
