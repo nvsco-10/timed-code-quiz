@@ -210,8 +210,23 @@ function saveScore(name, score) {
 
     localStorage.setItem('scores', JSON.stringify(highScores));
 
-    console.log(localStorage);
+    displayScores(highScores);
+
 }
+
+function displayScores(storedScores) {
+
+    storedScores.forEach(data => {
+        const scoreEntry = document.createElement("li");
+        scoreEntry.textContent = `${data.name} - ${data.score}`;
+        scoreList.appendChild(scoreEntry);
+    })
+
+}
+
+
+
+
 
 
 
