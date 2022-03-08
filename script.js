@@ -18,37 +18,37 @@ const questions = [
     {
         question: "This is question 4",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
     {
         question: "Which of the following is NOT a Javascript data type?",
         choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "Nan"
+        answer: "NaN"
     },
 ];
 
@@ -86,7 +86,7 @@ function startQuiz() {
 
 function showQuestion() {
 
-    setInterval(startTimer, 1000);
+    startTimer();
 
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
@@ -106,16 +106,22 @@ function showQuestion() {
 
 // Javascript countdown timer: https://www.youtube.com/watch?v=x7WJEmxNlEs
 function startTimer() {
-    let minutes = Math.floor(countdownTime / 60);
-    let seconds = countdownTime % 60;
 
-    if (seconds <= 9) {
-        seconds = "0" + seconds;
-      }
+    let timer = setInterval(function() {
+        
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
 
-    timerOutput.textContent = `${minutes}:${seconds}`
-    countdownTime--;
+        if (seconds <= 9) {
+            seconds = "0" + seconds;
+        }
 
+        timerOutput.textContent = `${minutes}:${seconds}`
+        countdownTime--;
+
+    }, 1000)
+
+    
 }
 
 function checkQuestion() {
@@ -125,7 +131,12 @@ function checkQuestion() {
         console.log("correct")
     } else {
         countdownTime -= 25;
-        console.log("incorrect")
+        console.log("incorrect");
+
+        if (countdownTime <= 0) {
+            questionSection.classList.remove("active");
+            saveScore.classList.add("active")
+        }
     }
 
     // page redirect: https://stackoverflow.com/questions/442384/jumping-to-a-new-html-page-with-javascript
