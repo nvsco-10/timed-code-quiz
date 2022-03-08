@@ -54,10 +54,15 @@ const questions = [
 
 const startBtn = document.querySelector(".start");
 const questionCountOutput = document.querySelector(".q-number");
+const scoreOutput = document.querySelector(".score");
+const timerOutput = document.querySelector(".timer");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
 
 let currentIndex = 0;
+let scoreCount = 0;
+let timerStart = 2; // 2 minutes
+let countdownTime = timerStart * 60; // convert to minutes
 
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
@@ -72,11 +77,14 @@ function startQuiz() {
     startSection.classList.remove("active");
     questionSection.classList.add("active");
 
-    showQuestion(checkQuestion);
+    showQuestion();
 }
 
 
-function showQuestion(question) {
+
+function showQuestion() {
+
+    setInterval(startTimer, 1000);
 
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
@@ -94,11 +102,28 @@ function showQuestion(question) {
     
 }
 
+// Javascript countdown timer: https://www.youtube.com/watch?v=x7WJEmxNlEs
+function startTimer() {
+    let minutes = Math.floor(countdownTime / 60);
+    let seconds = countdownTime % 60;
+
+    if (seconds <= 9) {
+        seconds = "0" + seconds;
+      }
+
+    timerOutput.textContent = `${minutes}:${seconds}`
+    countdownTime--;
+}
+
+
+
 function checkQuestion() {
 
     if (this.textContent === questions[currentIndex].answer) {
+        scoreCount++
         console.log("correct")
     } else {
+        countdownTime -= 15;
         console.log("incorrect")
     }
 
@@ -110,6 +135,7 @@ function nextQuestion() {
     currentIndex++
     const choicesBtns = document.querySelectorAll(".choices");
 
+    scoreOutput.textContent = scoreCount;
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
     

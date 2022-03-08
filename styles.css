@@ -28,8 +28,13 @@ button, p {
     font-size: 1.5rem;
 }
 
+.container {
+    width: 550px;
+}
+
 .quiz-card {
     display: none;
+    width: 100%;
 }
 
 .start-card.active {
