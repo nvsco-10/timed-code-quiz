@@ -61,7 +61,7 @@ const choicesOutput = document.querySelector(".choices-box");
 
 const startSection = document.querySelector(".start-card");
 const questionSection = document.querySelector(".question-card");
-const saveScore = document.querySelector(".save-score");
+const saveUser = document.querySelector(".save-user");
 
 const totalQuestions = questions.length;
 let currentIndex = 0;
@@ -136,8 +136,7 @@ function checkQuestion() {
 
         if (countdownTime <= 0) {
             // hide questions and ask user to enter name and display score in scoreboard.
-            questionSection.classList.remove("active");
-            saveScore.classList.add("active")
+            askUserName();
         }
     }
 
@@ -147,8 +146,7 @@ function checkQuestion() {
         nextQuestion();
     } else if (currentIndex === totalQuestions - 1) {
         // hide questions and ask user to enter name and display score in scoreboard.
-        questionSection.classList.remove("active");
-        saveScore.classList.add("active")
+        askUserName();
     }
 
 }
@@ -170,13 +168,17 @@ function nextQuestion() {
 
 }
 
+function askUserName() {
+    questionSection.classList.remove("active");
+    saveUser.classList.add("active");
+}
+
 // SAVE SCORE
 
 const saveScoreBtn = document.querySelector(".save");
 const userInput = document.querySelector("#name");
 const showScores = document.querySelector(".score-board");
 const scoreList = document.querySelector(".scores")
-const storedScores = localStorage;
 
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
@@ -184,22 +186,35 @@ saveScoreBtn.addEventListener("click", function () {
 
     console.log(user);
 
-    // store object in local storage - https://blog.logrocket.com/storing-retrieving-javascript-objects-localstorage/
+    saveScore(user, finalScore);
 
-    localStorage.setItem(`{user: ${user}, score: ${finalScore}}`, JSON.stringify(`{user: ${user}, score: ${finalScore}}`))
-    console.log(localStorage);
-
-    // looping over local storage using for in loop - https://attacomsian.com/blog/javascript-iterate-over-local-storage-keys
-    for (const key in localStorage) {
-        console.log(`${key}: ${localStorage.getItem(key)}`);
-    }
-
-    saveScore.classList.remove("active");
+    saveUser.classList.remove("active");
     showScores.classList.add("active");
 
-
-
 })
+
+function saveScore(name, score) {
+ 
+    // store scores in local storage - https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
+
+    const highScoreString = localStorage.getItem('scores');
+
+    // if there are no scores in storage, set value to empty array
+    const highScores = JSON.parse(highScoreString) ?? [];
+
+    const newScore = { score, name };
+
+    highScores.push(newScore);
+
+    highScores.sort((a, b) => b.score - a.score);
+
+    localStorage.setItem('scores', JSON.stringify(highScores));
+
+    console.log(localStorage);
+}
+
+
+
 
 
 

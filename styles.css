@@ -72,7 +72,7 @@ button {
 
 /* SCORES */
 
-.save-score.active {
+.save-user.active {
     display: block;
 }
 
