@@ -24,6 +24,10 @@ main {
     min-height: calc(100vh - 3rem);
 }
 
+button, p {
+    font-size: 1.5rem;
+}
+
 .quiz-card {
     display: none;
 }
@@ -34,6 +38,12 @@ main {
 
 .question-card.active {
     display: block;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h2.question {
