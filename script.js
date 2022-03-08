@@ -59,10 +59,12 @@ const timerOutput = document.querySelector(".timer");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
 
+const totalQuestions = questions.length;
 let currentIndex = 0;
 let scoreCount = 0;
 let timerStart = 2; // 2 minutes
 let countdownTime = timerStart * 60; // convert to minutes
+let isQuizOver = false;
 
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
@@ -113,6 +115,7 @@ function startTimer() {
 
     timerOutput.textContent = `${minutes}:${seconds}`
     countdownTime--;
+
 }
 
 
@@ -127,7 +130,12 @@ function checkQuestion() {
         console.log("incorrect")
     }
 
-    nextQuestion();
+    if (currentIndex < totalQuestions - 1) {
+        nextQuestion();
+    } else {
+        window.location.href = "end-game.html"
+    }
+    
 
 }
 

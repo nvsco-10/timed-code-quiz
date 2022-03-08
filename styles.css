@@ -45,6 +45,7 @@ button, p {
     display: block;
 }
 
+
 .info {
     display: flex;
     justify-content: space-between;
@@ -68,3 +69,14 @@ button {
     padding: 0.5em;
     color: inherit;
 }
+
+/* SCORES */
+
+.save-score.active {
+    display: block;
+}
+
+.score-board.active {
+    display: block;
+}
+
