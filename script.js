@@ -54,7 +54,7 @@ const questions = [
 
 const startBtn = document.querySelector(".start");
 const questionCountOutput = document.querySelector(".q-number");
-const scoreOutput = document.querySelector(".score");
+const scoreOutputs = document.querySelectorAll(".score");
 const timerOutput = document.querySelector(".timer");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
@@ -68,7 +68,6 @@ let currentIndex = 0;
 let scoreCount = 0;
 let timerStart = 2; // 2 minutes
 let countdownTime = timerStart * 60; // convert to seconds
-let isQuizOver = false;
 
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
@@ -88,9 +87,11 @@ function showQuestion() {
 
     startTimer();
 
+    // loads first question
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
     
+    // creates buttons for each choice in questions array and append to choicesOutput.
     questions[currentIndex].choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.classList.add("choices")
@@ -134,6 +135,7 @@ function checkQuestion() {
         console.log("incorrect");
 
         if (countdownTime <= 0) {
+            // hide questions and ask user to enter name and display score in scoreboard.
             questionSection.classList.remove("active");
             saveScore.classList.add("active")
         }
@@ -144,7 +146,7 @@ function checkQuestion() {
     if (currentIndex < totalQuestions - 1) {
         nextQuestion();
     } else if (currentIndex === totalQuestions - 1) {
-
+        // hide questions and ask user to enter name and display score in scoreboard.
         questionSection.classList.remove("active");
         saveScore.classList.add("active")
     }
@@ -155,7 +157,10 @@ function nextQuestion() {
     currentIndex++
     const choicesBtns = document.querySelectorAll(".choices");
 
-    scoreOutput.textContent = scoreCount;
+    scoreOutputs.forEach(output => {
+        output.textContent = scoreCount;
+    })
+
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
     
@@ -169,10 +174,35 @@ function nextQuestion() {
 
 const saveScoreBtn = document.querySelector(".save");
 const userInput = document.querySelector("#name");
+const showScores = document.querySelector(".score-board");
+const scoreList = document.querySelector(".scores")
+const storedScores = localStorage;
 
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
+    const finalScore = scoreCount;
 
-    console.log(`${user}`)
+    console.log(user);
+
+    // store object in local storage - https://blog.logrocket.com/storing-retrieving-javascript-objects-localstorage/
+
+    localStorage.setItem(`{user: ${user}, score: ${finalScore}}`, JSON.stringify(`{user: ${user}, score: ${finalScore}}`))
+    console.log(localStorage);
+
+    // looping over local storage using for in loop - https://attacomsian.com/blog/javascript-iterate-over-local-storage-keys
+    for (const key in localStorage) {
+        console.log(`${key}: ${localStorage.getItem(key)}`);
+    }
+
+    saveScore.classList.remove("active");
+    showScores.classList.add("active");
+
+
+
 })
+
+
+
+
+
 
