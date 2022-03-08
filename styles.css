@@ -24,7 +24,7 @@ main {
     min-height: calc(100vh - 3rem);
 }
 
-button, p {
+button, p, input {
     font-size: 1.5rem;
 }
 
@@ -78,5 +78,12 @@ button {
 
 .score-board.active {
     display: block;
+}
+
+input {
+    width: 100%;
+    padding: 0.3em;
+    text-align: center;
+    color: black;
 }
 

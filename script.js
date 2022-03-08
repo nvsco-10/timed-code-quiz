@@ -59,11 +59,15 @@ const timerOutput = document.querySelector(".timer");
 const questionOutput = document.querySelector(".question");
 const choicesOutput = document.querySelector(".choices-box");
 
+const startSection = document.querySelector(".start-card");
+const questionSection = document.querySelector(".question-card");
+const saveScore = document.querySelector(".save-score");
+
 const totalQuestions = questions.length;
 let currentIndex = 0;
 let scoreCount = 0;
 let timerStart = 2; // 2 minutes
-let countdownTime = timerStart * 60; // convert to minutes
+let countdownTime = timerStart * 60; // convert to seconds
 let isQuizOver = false;
 
 // click button to start quiz
@@ -71,10 +75,6 @@ startBtn.addEventListener("click", startQuiz);
 
 // hide start button and show quiz section
 function startQuiz() {
-
-    const startSection = document.querySelector(".start-card");
-    const questionSection = document.querySelector(".question-card");
-    const currentQuestion = questions[currentIndex]
 
     startSection.classList.remove("active");
     questionSection.classList.add("active");
@@ -118,24 +118,25 @@ function startTimer() {
 
 }
 
-
-
 function checkQuestion() {
 
     if (this.textContent === questions[currentIndex].answer) {
         scoreCount++
         console.log("correct")
     } else {
-        countdownTime -= 15;
+        countdownTime -= 25;
         console.log("incorrect")
     }
 
+    // page redirect: https://stackoverflow.com/questions/442384/jumping-to-a-new-html-page-with-javascript
+
     if (currentIndex < totalQuestions - 1) {
         nextQuestion();
-    } else {
-        window.location.href = "end-game.html"
+    } else if (currentIndex === totalQuestions - 1) {
+
+        questionSection.classList.remove("active");
+        saveScore.classList.add("active")
     }
-    
 
 }
 
@@ -153,5 +154,14 @@ function nextQuestion() {
 
 }
 
+// SAVE SCORE
 
+const saveScoreBtn = document.querySelector(".save");
+const userInput = document.querySelector("#name");
+
+saveScoreBtn.addEventListener("click", function () {
+    const user = userInput.value;
+
+    console.log(`${user}`)
+})
 
