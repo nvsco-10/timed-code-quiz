@@ -16,9 +16,24 @@ Built using HTML, CSS, and plain Javascript.
 </p>
 
 <br>
+
+Javascript quiz questions sources: <br>
+[Tutorials Point](https://www.tutorialspoint.com/javascript/javascript_online_quiz.htm) <br>
+[Interview Bit](https://www.interviewbit.com/javascript-mcq/)
+
+<br>
 <hr>
 
 ## Other Features
+
+- Question container will light up red or green, depending on user's answer.
+
+<br>
+
+<p align="center">
+<img src="./img/answer.PNG" width="500" />
+</p>
+
 <br>
 
 ### Scores stored using localStorage
@@ -37,7 +52,6 @@ The user's initials and score will then be saved into localStorage.
 <p align="center">
 <img src="./img/scoreboard.PNG" width="400" />
 </p>
-
 
 ## License 
 
