@@ -1,4 +1,6 @@
-// Javascript interview questions source: https://www.guru99.com/javascript-interview-questions-answers.html
+// Javascript interview questions sources: 
+// https://www.tutorialspoint.com/javascript/javascript_online_quiz.htm
+// https://www.interviewbit.com/javascript-mcq/
 const questions = [
     {
         question: "Which of the following is NOT a Javascript data type?",
@@ -6,49 +8,49 @@ const questions = [
         answer: "NaN"
     },
     {
-        question: "This is question 2",
-        choices: ["test", "test2", "test 3", "test 4"],
-        answer: "test 3"
+        question: "How can a datatype be declared to be a constant type?",
+        choices: ["const", "var", "let", "constant"],
+        answer: "const"
     },
     {
-        question: "This is question 3",
-        choices: ["hello", "world", "console", "log"],
-        answer: "world"
+        question: "What keyword is used to check whether a given property is valid or not?",
+        choices: ["in", "is in", "exists", "lies"],
+        answer: "in"
     },
     {
-        question: "This is question 4",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "Which of the following function of String object returns a string representing the specified object?",
+        choices: ["toLocaleUpperCase()", "toUpperCase()", "toString()", "substring()"],
+        answer: "toString()"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "Which function is used to serialize an object into a JSON string in Javascript?",
+        choices: ["stringify()", "parse()", "convert()", "None of the above"],
+        answer: "stringify()"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "Which of the following function of Array object reverses the order of the elements of an array?",
+        choices: ["reverse()", "push()", "reduce()", "reduceRight()"],
+        answer: "reverse()"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "Which of the following function of Array object adds one or more elements to the end of an array and returns the new length of the array?",
+        choices: ["pop()", "push()", "join()", "map()"],
+        answer: "push()"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "Which of the following is NOT a Javascript framework?",
+        choices: ["Node", "Vue", "React", "Cassandra"],
+        answer: "Cassandra"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "What keyword is used to declare an asynchronous function in Javascript?",
+        choices: ["async", "await", "setTimeout", "None of the above"],
+        answer: "async"
     },
     {
-        question: "Which of the following is NOT a Javascript data type?",
-        choices: ["String", "NaN", "Boolean", "Undefined"],
-        answer: "NaN"
+        question: "How to stop an interval timer in Javascript?",
+        choices: ["clearInterval", "clearTimer", "intervalOver", "None of the above"],
+        answer: "clearInterval"
     },
 ];
 
@@ -61,9 +63,8 @@ const choicesOutput = document.querySelector(".choices-box");
 
 const startSection = document.querySelector(".start-card");
 const questionSection = document.querySelector(".question-card");
-const saveUser = document.querySelector(".save-user");
+const saveSection = document.querySelector(".save-user");
 
-let isGameOver = false;
 const totalQuestions = questions.length;
 let currentIndex = 0;
 let scoreCount = 0;
@@ -78,11 +79,10 @@ startBtn.addEventListener("click", startQuiz);
 
 // hide start button and show quiz section
 function startQuiz() {
+    let timer = setInterval(startTimer, 1000);
 
     startSection.classList.remove("active");
     questionSection.classList.add("active");
-
-    let timer = setInterval(startTimer, 1000)
 
 }
 
@@ -168,7 +168,7 @@ function nextQuestion() {
 
 function askUserName() {
     questionSection.classList.remove("active");
-    saveUser.classList.add("active");
+    saveSection.classList.add("active");
 }
 
 // SAVE/RESET SCORES and RESTART QUIZ

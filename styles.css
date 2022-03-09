@@ -11,9 +11,20 @@ body {
     background-color: black;
 }
 
+button, p, input {
+    font-size: 1.5rem;
+}
+
 header {
     height: 3rem;
+    padding: 0.5em 0;
     text-align: center;
+    background-color: rgb(5, 71, 97);
+}
+
+header h1 {
+    font-size: 2rem;
+    color:rgb(255, 255, 255)
 }
 
 main {
@@ -22,10 +33,6 @@ main {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 3rem);
-}
-
-button, p, input {
-    font-size: 1.5rem;
 }
 
 .container {
@@ -50,16 +57,23 @@ button, p, input {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid white;
 }
 
 h2.question {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-weight: 200;
     color: white;
+    margin: 1rem;
+    padding: 0.5em 0;
+    text-align: center;
 
 }
 
 .choices {
     display: block;
+    margin: 0.5rem;
 }
 
 button {
