@@ -82,7 +82,7 @@ function startQuiz() {
     startSection.classList.remove("active");
     questionSection.classList.add("active");
 
-    startTimer();
+    let timer = setInterval(startTimer, 1000)
 
 }
 
@@ -108,20 +108,16 @@ function showQuestion() {
 
 // Javascript countdown timer: https://www.youtube.com/watch?v=x7WJEmxNlEs
 function startTimer() {
-
-    let timer = setInterval(function() {
         
-        let minutes = Math.floor(countdownTime / 60);
-        let seconds = countdownTime % 60;
+    let minutes = Math.floor(countdownTime / 60);
+    let seconds = countdownTime % 60;
 
-        if (seconds <= 9) {
-            seconds = "0" + seconds;
-        }
+    if (seconds <= 9) {
+        seconds = "0" + seconds;
+    }
 
-        timerOutput.textContent = `${minutes}:${seconds}`
-        countdownTime--;
-
-    }, 1000)
+    timerOutput.textContent = `${minutes}:${seconds}`
+    countdownTime--;
 
 }
 
@@ -180,10 +176,7 @@ function askUserName() {
 const saveScoreBtn = document.querySelector(".save");
 const userInput = document.querySelector("#name");
 const showScores = document.querySelector(".score-board");
-const scoreList = document.querySelector(".scores")
 
-const restartBtn = document.querySelector(".restart"); // restart quiz
-const resetBtn = document.querySelector(".reset") // reset scores
 
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
@@ -193,8 +186,10 @@ saveScoreBtn.addEventListener("click", function () {
 
     saveScore(user, finalScore);
 
-    saveUser.classList.remove("active");
-    showScores.classList.add("active");
+    location.href = "end-game.html"
+
+    // saveUser.classList.remove("active");
+    // showScores.classList.add("active");
 
 })
 
@@ -215,39 +210,39 @@ function saveScore(name, score) {
 
     localStorage.setItem('scores', JSON.stringify(highScores));
 
-    displayScores(highScores);
+    // displayScores(highScores);
 
 }
 
-function displayScores(storedScores) {
+// function displayScores(storedScores) {
 
-    storedScores.forEach(data => {
-        const scoreEntry = document.createElement("li");
-        scoreEntry.textContent = `${data.name} - ${data.score}`;
-        scoreList.appendChild(scoreEntry);
-    })
+//     storedScores.forEach(data => {
+//         const scoreEntry = document.createElement("li");
+//         scoreEntry.textContent = `${data.name} - ${data.score}`;
+//         scoreList.appendChild(scoreEntry);
+//     })
 
-}
+// }
 
-restartBtn.addEventListener("click", restartQuiz)
-resetBtn.addEventListener("click", resetScores)
+// restartBtn.addEventListener("click", restartQuiz)
+// resetBtn.addEventListener("click", resetScores)
 
-function restartQuiz() {
-    scoreCount = 0;
-    scoreOutputs.forEach(score => {
-        score.textContent = scoreCount;
-    })
+// function restartQuiz() {
+//     scoreCount = 0;
+//     scoreOutputs.forEach(score => {
+//         score.textContent = scoreCount;
+//     })
 
-    currentIndex = 0;
-    questionCountOutput.textContent = currentIndex + 1;
+//     currentIndex = 0;
+//     questionCountOutput.textContent = currentIndex + 1;
 
-    showScores.classList.remove("active");
-    startSection.classList.add("active")
-}
+//     showScores.classList.remove("active");
+//     startSection.classList.add("active")
+// }
 
-function resetScores() {
-    localStorage.clear();
-}
+// function resetScores() {
+//     localStorage.clear();
+// }
 
 
 

@@ -1,9 +1,29 @@
-const saveScoreBtn = document.querySelector(".save");
-const userInput = document.querySelector("#name");
+const storedScores = JSON.parse(localStorage.getItem('scores'));
+const scoreList = document.querySelector(".scores")
 
-saveScoreBtn.addEventListener("click", function () {
-    const user = userInput.value;
+const restartBtn = document.querySelector(".restart"); // restart quiz
+const resetBtn = document.querySelector(".reset") // reset scores
 
-    console.log(`${user}`)
-})
+window.addEventListener("DOMContentLoaded", displayScores(storedScores))
 
+function displayScores(storedScores) {
+
+    storedScores.forEach(data => {
+        const scoreEntry = document.createElement("li");
+        scoreEntry.textContent = `${data.name} - ${data.score}`;
+        scoreList.appendChild(scoreEntry);
+    })
+
+}
+
+restartBtn.addEventListener("click", restartQuiz)
+resetBtn.addEventListener("click", resetScores)
+
+function restartQuiz() {
+    location.href = "index.html";
+}
+
+function resetScores() {
+    localStorage.clear();
+    scoreList.innerHTML = "";
+}
