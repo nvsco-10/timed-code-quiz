@@ -71,15 +71,15 @@ let scoreCount = 0;
 let timerStart = 2; // 2 minutes
 let countdownTime = timerStart * 60; // convert to seconds
 
-// when window starts, start loading the questions
-window.addEventListener("DOMContentLoaded", showQuestion)
-
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
 
-// hide start button and show quiz section
+// hide start button, show quiz section and start timer
 function startQuiz() {
-    let timer = setInterval(startTimer, 1000);
+
+    showQuestion();
+
+    startTimer();
 
     startSection.classList.remove("active");
     questionSection.classList.add("active");
@@ -89,10 +89,10 @@ function startQuiz() {
 function showQuestion() {
 
     // loads first question
-    questionCountOutput.textContent = currentIndex + 1;
-    questionOutput.textContent = questions[currentIndex].question;
+    displayQuestion();
     
     // creates buttons for each choice in questions array and append to choicesOutput.
+    // if number of choices is unknown or changed, code will still work as intended
     questions[currentIndex].choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.classList.add("choices")
@@ -108,41 +108,43 @@ function showQuestion() {
 
 // Javascript countdown timer: https://www.youtube.com/watch?v=x7WJEmxNlEs
 function startTimer() {
-        
-    let minutes = Math.floor(countdownTime / 60);
-    let seconds = countdownTime % 60;
+    
+    let timer = setInterval(function(){
+        countdownTime--;
 
-    if (seconds <= 9) {
-        seconds = "0" + seconds;
-    }
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
 
-    timerOutput.textContent = `${minutes}:${seconds}`
-    countdownTime--;
+        if (seconds <= 9) {
+            seconds = "0" + seconds;
+        }
 
+        timerOutput.textContent = `${minutes}:${seconds}`
+
+        if (countdownTime < 0) {
+            clearInterval(timer)
+            askUserName();
+        }
+
+    }, 1000)
+    
 }
 
 function checkQuestion() {
 
+    // correct or incorrect?
     if (this.textContent === questions[currentIndex].answer) {
         scoreCount++
         console.log("correct")
     } else {
         countdownTime -= 25;
         console.log("incorrect");
-
-        if (countdownTime <= 0) {
-            isGameOver = true;
-            // hide questions and ask user to enter name and display score in scoreboard.
-            askUserName();
-        }
     }
 
-    // page redirect: https://stackoverflow.com/questions/442384/jumping-to-a-new-html-page-with-javascript
-
+    // if there are remaining questions, load next question.. if last question, proceed to ask user for initials
     if (currentIndex < totalQuestions - 1) {
         nextQuestion();
     } else if (currentIndex === totalQuestions - 1) { 
-        isGameOver = true;
         // hide questions and ask user to enter name and display score in scoreboard.
         askUserName();
     }
@@ -153,17 +155,23 @@ function nextQuestion() {
     currentIndex++
     const choicesBtns = document.querySelectorAll(".choices");
 
+    // update all score outputs
     scoreOutputs.forEach(output => {
         output.textContent = scoreCount;
     })
 
-    questionCountOutput.textContent = currentIndex + 1;
-    questionOutput.textContent = questions[currentIndex].question;
+    displayQuestion();
     
+    // replace content of previous question's choices with next question's choices
     choicesBtns.forEach((btn, i) => {
         btn.textContent = questions[currentIndex].choices[i];
     })
 
+}
+
+function displayQuestion () {
+    questionCountOutput.textContent = currentIndex + 1;
+    questionOutput.textContent = questions[currentIndex].question;
 }
 
 function askUserName() {
@@ -192,10 +200,9 @@ saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
     const finalScore = scoreCount;
 
-    console.log(user);
-
     saveScore(user, finalScore);
 
+    // page redirect: https://stackoverflow.com/questions/442384/jumping-to-a-new-html-page-with-javascript
     location.href = "end-game.html"
 
 })
@@ -204,17 +211,23 @@ function saveScore(name, score) {
  
     // store scores in local storage - https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
 
+    // retrieve all scores from local storage
     const scoresString = localStorage.getItem('scores');
 
-    // if there are no scores in storage, set value to empty array
+    // convert data from local storage - from JSON string to object
+    // if there are no scores in storage, set value to empty array 
     const scores = JSON.parse(scoresString) ?? [];
 
+    // create new object that stores that current user's score and initials
     const newScore = { score, name };
 
+    // push newly created object into scores array
     scores.push(newScore);
 
+    // sorts scores array from highest to lowest score
     scores.sort((a, b) => b.score - a.score);
 
+    // convert scores into JSON and store in localstorage
     localStorage.setItem('scores', JSON.stringify(scores));
 
 }

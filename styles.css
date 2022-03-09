@@ -47,6 +47,12 @@ main {
     width: 550px;
 }
 
+@media (max-width: 580px) {
+    .container {
+        width: 85vw;
+    }
+}
+
 .quiz-card {
     display: none;
     width: 100%;
