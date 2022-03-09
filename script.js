@@ -74,25 +74,22 @@ let countdownTime = timerStart * 60; // convert to seconds
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
 
-// hide start button, show quiz section and start timer
 function startQuiz() {
 
-    showQuestion();
-
+    // hide start button, show quiz section and start timer
+    loadQuestion();
     startTimer();
-
-    startSection.classList.remove("active");
-    questionSection.classList.add("active");
+    showQuestions();
 
 }
 
-function showQuestion() {
+function loadQuestion() {
 
-    // loads first question
+    // display first question
     displayQuestion();
     
     // creates buttons for each choice in questions array and append to choicesOutput.
-    // if number of choices is unknown or changed, code will still work as intended
+    // if number of choices is unknown or changed, code will adapt
     questions[currentIndex].choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.classList.add("choices")
@@ -135,7 +132,7 @@ function checkQuestion() {
     // correct or incorrect?
     if (this.textContent === questions[currentIndex].answer) {
         scoreCount++
-        showCorrect();
+        showCorrect(); 
     } else {
         countdownTime -= 25;
         showIncorrect();
@@ -169,12 +166,18 @@ function nextQuestion() {
 
 }
 
+function showQuestions() {
+    startSection.classList.remove("active");
+    questionSection.classList.add("active");
+}
+
 function displayQuestion () {
     questionCountOutput.textContent = currentIndex + 1;
     questionOutput.textContent = questions[currentIndex].question;
 }
 
 function showCorrect() {
+    // quiz container box shadow green to let user know answer is correct
     questionSection.classList.add("correct")
 
     setTimeout(function() {
@@ -183,6 +186,7 @@ function showCorrect() {
 }
 
 function showIncorrect() {
+    // quiz container box shadow red to let user know answer is incorrect
     questionSection.classList.add("incorrect")
 
     setTimeout(function() {
@@ -202,18 +206,10 @@ function askUserName() {
 const userInput = document.querySelector("#name");
 const saveScoreBtn = document.querySelector(".save");
 
-
 // if user input is empty, prevent user from saving.
 userInput.addEventListener("input", toggleDisable)
 
-function toggleDisable() {
-    if (this.value.length > 0) {
-        saveScoreBtn.disabled = false;
-    } else {
-        saveScoreBtn.disabled = true;
-    }
-}
-
+// when user hits save, store data in localStorage and load the scoreboard
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
     const finalScore = scoreCount;
@@ -221,7 +217,7 @@ saveScoreBtn.addEventListener("click", function () {
     saveScore(user, finalScore);
 
     // page redirect: https://stackoverflow.com/questions/442384/jumping-to-a-new-html-page-with-javascript
-    location.href = "end-game.html"
+    location.href = "scoreboard.html"
 
 })
 
@@ -250,6 +246,13 @@ function saveScore(name, score) {
 
 }
 
+function toggleDisable() {
+    if (this.value.length > 0) {
+        saveScoreBtn.disabled = false;
+    } else {
+        saveScoreBtn.disabled = true;
+    }
+}
 
 
 
