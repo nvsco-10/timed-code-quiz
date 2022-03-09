@@ -31,7 +31,7 @@ Javascript quiz questions sources: <br>
 <br>
 
 <p align="center">
-<img src="./img/answer.PNG" width="500" />
+<img src="./img/answer.png" width="500" />
 </p>
 
 <br>
