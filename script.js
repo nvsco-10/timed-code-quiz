@@ -63,12 +63,14 @@ const startSection = document.querySelector(".start-card");
 const questionSection = document.querySelector(".question-card");
 const saveUser = document.querySelector(".save-user");
 
+let isGameOver = false;
 const totalQuestions = questions.length;
 let currentIndex = 0;
 let scoreCount = 0;
 let timerStart = 2; // 2 minutes
 let countdownTime = timerStart * 60; // convert to seconds
 
+// when window starts, start loading the questions
 window.addEventListener("DOMContentLoaded", showQuestion)
 
 // click button to start quiz
@@ -81,6 +83,7 @@ function startQuiz() {
     questionSection.classList.add("active");
 
     startTimer();
+
 }
 
 function showQuestion() {
@@ -120,7 +123,6 @@ function startTimer() {
 
     }, 1000)
 
-    
 }
 
 function checkQuestion() {
@@ -133,6 +135,7 @@ function checkQuestion() {
         console.log("incorrect");
 
         if (countdownTime <= 0) {
+            isGameOver = true;
             // hide questions and ask user to enter name and display score in scoreboard.
             askUserName();
         }
@@ -142,7 +145,8 @@ function checkQuestion() {
 
     if (currentIndex < totalQuestions - 1) {
         nextQuestion();
-    } else if (currentIndex === totalQuestions - 1) {
+    } else if (currentIndex === totalQuestions - 1) { 
+        isGameOver = true;
         // hide questions and ask user to enter name and display score in scoreboard.
         askUserName();
     }
@@ -226,10 +230,23 @@ function displayScores(storedScores) {
 }
 
 restartBtn.addEventListener("click", restartQuiz)
+resetBtn.addEventListener("click", resetScores)
 
 function restartQuiz() {
+    scoreCount = 0;
+    scoreOutputs.forEach(score => {
+        score.textContent = scoreCount;
+    })
+
+    currentIndex = 0;
+    questionCountOutput.textContent = currentIndex + 1;
+
     showScores.classList.remove("active");
     startSection.classList.add("active")
+}
+
+function resetScores() {
+    localStorage.clear();
 }
 
 
