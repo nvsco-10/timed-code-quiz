@@ -121,7 +121,7 @@ function startTimer() {
 
         timerOutput.textContent = `${minutes}:${seconds}`
 
-        if (countdownTime < 0) {
+        if (countdownTime <= 0) {
             clearInterval(timer)
             askUserName();
         }
@@ -135,10 +135,10 @@ function checkQuestion() {
     // correct or incorrect?
     if (this.textContent === questions[currentIndex].answer) {
         scoreCount++
-        console.log("correct")
+        showCorrect();
     } else {
         countdownTime -= 25;
-        console.log("incorrect");
+        showIncorrect();
     }
 
     // if there are remaining questions, load next question.. if last question, proceed to ask user for initials
@@ -174,7 +174,25 @@ function displayQuestion () {
     questionOutput.textContent = questions[currentIndex].question;
 }
 
+function showCorrect() {
+    questionSection.classList.add("correct")
+
+    setTimeout(function() {
+        questionSection.classList.remove("correct")
+    }, 400)
+}
+
+function showIncorrect() {
+    questionSection.classList.add("incorrect")
+
+    setTimeout(function() {
+        questionSection.classList.remove("incorrect")
+    }, 400)
+}
+
 function askUserName() {
+
+    //hide question section and show save score section
     questionSection.classList.remove("active");
     saveSection.classList.add("active");
 }

@@ -47,12 +47,6 @@ main {
     width: 550px;
 }
 
-@media (max-width: 580px) {
-    .container {
-        width: 85vw;
-    }
-}
-
 .quiz-card {
     display: none;
     width: 100%;
@@ -83,6 +77,14 @@ button.start {
     display: block;
 }
 
+.question-card.correct {
+    box-shadow: 0 0 10px 10px rgba(19, 240, 130, 0.8);
+}
+
+.question-card.incorrect {
+    box-shadow: 0 0 10px 10px rgba(240, 19, 111, 0.8);
+}
+
 
 .info {
     display: flex;
@@ -107,7 +109,7 @@ h2.question {
     margin: 0.5rem;
 }
 
-/* SCORES */
+/* ---------------------- SCORES --------------------- */
 
 .save-user.active {
     display: block;
@@ -154,7 +156,6 @@ ul.scores {
     margin: 2rem 0;
     font-size: 1.5rem;
     text-align: center;
-
 }
 
 li {
@@ -164,6 +165,22 @@ li {
 
 .restart {
     margin-right: 1rem;
+}
+
+/* ---------------------- MEDIA QUERY --------------------- */
+
+@media (max-width: 580px) {
+    .container {
+        width: 85vw;
+    }
+
+    .info p {
+        font-size: 1.1rem;
+    }
+
+    h2.question {
+        font-size: 1.5rem;
+    }
 }
 
 
