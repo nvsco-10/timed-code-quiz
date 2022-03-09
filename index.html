@@ -14,30 +14,38 @@
 
     <main>
         <div class="container">
-            <div class="quiz-card start-card active">
+            <section class="quiz-card start-card active">
+                <div class="about-box">
+                    <ul class="about">
+                        <li>This is a timed quiz on Javascript fundamentals.</li>
+                        <li>You have 2 minutes to answer all questions.</li>
+                        <li>For each incorrect answer, 25 seconds will be deducted from the timer.</li>
+                        <li>Good luck!</li>
+                    </ul>
+                </div>
                 <button class="start">Start Quiz</button>
-            </div>
-            <div class="quiz-card question-card">
-                <section class="info">
+            </section>
+            <section class="quiz-card question-card">
+                <div class="info">
                     <p>Question: <span class="q-number">1</span></p>
                     <p>Score: <span class="score">0</span></p>
                     <p>Time Left: <span class="timer">2:00</span></p>
-                </section>
-                <section class="question-box">
-                    <h2 class="question">What is an array?</h2>
-                </section>
-                <section class="choices-box">
+                </div>
+                <div class="question-box">
+                    <h2 class="question"><!-- What is an array? --></h2>
+                </div>
+                <div class="choices-box">
                     <!-- <button class="choices">Lorem ipsum veritatis animi es.</button>
                     <button class="choices">Lorem ipsum veritatis animi es.</button>
                     <button class="choices">Lorem ipsum veritatis animi es.</button>
                     <button class="choices">Lorem ipsum veritatis animi es.</button> -->
-                </section>
-            </div>
-            <div class="quiz-card save-user">
+                </div>
+            </section>
+            <section class="quiz-card save-user">
                 <p class="final-score">Your Score: <span class="score"></span></p>
-                <input type="text" id="name" placeholder="enter name">
+                <input type="text" id="name" placeholder="enter initials">
                 <button class="save" disabled>Save</button>
-            </div>
+            </section>
         </div>
     </main>
 
