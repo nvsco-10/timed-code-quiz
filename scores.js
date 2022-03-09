@@ -4,6 +4,7 @@ const scoreList = document.querySelector(".scores")
 const restartBtn = document.querySelector(".restart"); // restart quiz
 const resetBtn = document.querySelector(".reset") // reset scores
 
+// when html loads, display stored scores
 window.addEventListener("DOMContentLoaded", displayScores(storedScores))
 
 function displayScores(storedScores) {

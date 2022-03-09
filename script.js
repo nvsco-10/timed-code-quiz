@@ -173,10 +173,20 @@ function askUserName() {
 
 // SAVE/RESET SCORES and RESTART QUIZ
 
-const saveScoreBtn = document.querySelector(".save");
 const userInput = document.querySelector("#name");
-const showScores = document.querySelector(".score-board");
+const saveScoreBtn = document.querySelector(".save");
 
+
+// if user input is empty, prevent user from saving.
+userInput.addEventListener("input", toggleDisable)
+
+function toggleDisable() {
+    if (this.value.length > 0) {
+        saveScoreBtn.disabled = false;
+    } else {
+        saveScoreBtn.disabled = true;
+    }
+}
 
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
@@ -188,62 +198,26 @@ saveScoreBtn.addEventListener("click", function () {
 
     location.href = "end-game.html"
 
-    // saveUser.classList.remove("active");
-    // showScores.classList.add("active");
-
 })
 
 function saveScore(name, score) {
  
     // store scores in local storage - https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
 
-    const highScoreString = localStorage.getItem('scores');
+    const scoresString = localStorage.getItem('scores');
 
     // if there are no scores in storage, set value to empty array
-    const highScores = JSON.parse(highScoreString) ?? [];
+    const scores = JSON.parse(scoresString) ?? [];
 
     const newScore = { score, name };
 
-    highScores.push(newScore);
+    scores.push(newScore);
 
-    highScores.sort((a, b) => b.score - a.score);
+    scores.sort((a, b) => b.score - a.score);
 
-    localStorage.setItem('scores', JSON.stringify(highScores));
-
-    // displayScores(highScores);
+    localStorage.setItem('scores', JSON.stringify(scores));
 
 }
-
-// function displayScores(storedScores) {
-
-//     storedScores.forEach(data => {
-//         const scoreEntry = document.createElement("li");
-//         scoreEntry.textContent = `${data.name} - ${data.score}`;
-//         scoreList.appendChild(scoreEntry);
-//     })
-
-// }
-
-// restartBtn.addEventListener("click", restartQuiz)
-// resetBtn.addEventListener("click", resetScores)
-
-// function restartQuiz() {
-//     scoreCount = 0;
-//     scoreOutputs.forEach(score => {
-//         score.textContent = scoreCount;
-//     })
-
-//     currentIndex = 0;
-//     questionCountOutput.textContent = currentIndex + 1;
-
-//     showScores.classList.remove("active");
-//     startSection.classList.add("active")
-// }
-
-// function resetScores() {
-//     localStorage.clear();
-// }
-
 
 
 
