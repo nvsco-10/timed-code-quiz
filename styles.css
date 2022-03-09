@@ -87,3 +87,7 @@ input {
     color: black;
 }
 
+.btn-container {
+    display: flex;
+}
+

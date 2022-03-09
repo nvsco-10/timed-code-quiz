@@ -69,6 +69,8 @@ let scoreCount = 0;
 let timerStart = 2; // 2 minutes
 let countdownTime = timerStart * 60; // convert to seconds
 
+window.addEventListener("DOMContentLoaded", showQuestion)
+
 // click button to start quiz
 startBtn.addEventListener("click", startQuiz);
 
@@ -78,14 +80,10 @@ function startQuiz() {
     startSection.classList.remove("active");
     questionSection.classList.add("active");
 
-    showQuestion();
+    startTimer();
 }
 
-
-
 function showQuestion() {
-
-    startTimer();
 
     // loads first question
     questionCountOutput.textContent = currentIndex + 1;
@@ -173,12 +171,15 @@ function askUserName() {
     saveUser.classList.add("active");
 }
 
-// SAVE SCORE
+// SAVE/RESET SCORES and RESTART QUIZ
 
 const saveScoreBtn = document.querySelector(".save");
 const userInput = document.querySelector("#name");
 const showScores = document.querySelector(".score-board");
 const scoreList = document.querySelector(".scores")
+
+const restartBtn = document.querySelector(".restart"); // restart quiz
+const resetBtn = document.querySelector(".reset") // reset scores
 
 saveScoreBtn.addEventListener("click", function () {
     const user = userInput.value;
@@ -224,7 +225,12 @@ function displayScores(storedScores) {
 
 }
 
+restartBtn.addEventListener("click", restartQuiz)
 
+function restartQuiz() {
+    showScores.classList.remove("active");
+    startSection.classList.add("active")
+}
 
 
 
